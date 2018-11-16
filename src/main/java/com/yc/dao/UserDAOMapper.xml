@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yc.dao.UserDAO">
+	<select id="getCount" resultType="int">
+		select count(*) from auser where
+		name like #{search_name} and account like #{search_account}
+	</select>
+	<select id="getAllUsers" resultType="com.yc.po.User">
+		select * from auser where
+		name like #{search_name} and account like #{search_account} limit
+		#{skip},#{size}
+	</select>
+
+	<insert id="addUser" parameterType="User">
+		insert into
+		auser(account,address,email,id,name,phone)
+		values(#{account},#{address},#{email},#{id},#{name},#{phone})
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+		update auser Set
+		account=#{account},address=#{address},email=#{email},id=#{id},name=#{name},phone=#{phone}
+		Where id=#{id}
+	</update>
+
+	<delete id="deleteUserById" parameterType="int">
+		delete from auser where
+		id=#{id}
+	</delete>
+</mapper>
